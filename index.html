@@ -268,12 +268,85 @@ padding:2rem;
 color:#6b7280;
 }
 
+
 /* ===== DARK MODE ===== */
 
-body.dark-mode{
-background:#9ca0a8;
+body.dark-mode {
+  background-color: #0f172a;
+  color: #e2e8f0;
 }
 
+/* NAVBAR */
+body.dark-mode nav {
+  background-color: #020617;
+}
+
+/* MENU */
+body.dark-mode nav li a,
+body.dark-mode nav li button {
+  background-color: #1e293b;
+  color: #e2e8f0;
+  border: 1px solid #334155;
+  transition: 0.3s;
+}
+
+/* NAVBAR HOVER : CONTUR LUMINEUX UNIQUEMENT (PAS DE CHANGEMENT DE COULEUR) */
+body.dark-mode nav li a:hover,
+body.dark-mode nav li button:hover {
+  background-color: #1e293b; /* reste identique */
+  border-color: #3b82f6;
+  box-shadow: 0 0 10px rgba(59,130,246,0.9);
+  transform: translateY(-2px);
+}
+
+/* HOVER LUMINEUX POUR LES AUTRES BOUTONS */
+body.dark-mode .hero-text button:hover,
+body.dark-mode .project-card button:hover,
+body.dark-mode #contact button:hover {
+  background-color: #3b82f6;
+  box-shadow: 0 0 14px rgba(59,130,246,0.9);
+  transform: translateY(-2px);
+}
+
+/* ICONES (GitHub + LinkedIn) */
+body.dark-mode .social-links img:hover {
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 8px rgba(59,130,246,0.8));
+}
+
+/* HERO TEXT */
+body.dark-mode .hero-text p {
+  color: #cbd5f5;
+}
+
+/* PROJETS */
+body.dark-mode .project-card {
+  background-color: #1e293b;
+  color: #e2e8f0;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+body.dark-mode .project-card p {
+  color: #cbd5f5;
+}
+
+/* FORMULAIRE */
+body.dark-mode input,
+body.dark-mode textarea {
+  background-color: #020617;
+  color: #e2e8f0;
+  border: 1px solid #334155;
+}
+
+/* COMPETENCES */
+body.dark-mode #competences li {
+  background-color: #1e293b;
+}
+
+/* FOOTER */
+body.dark-mode footer {
+  color: #94a3b8;
+}
 </style>
 
 </head>
@@ -288,7 +361,7 @@ background:#9ca0a8;
 <li><a href="#projets">Projets</a></li>
 <li><a href="#competences">Compétences</a></li>
 <li><a href="#contact">Contact</a></li>
-<li><button id="theme-toggle">Changer le thème</button></li>
+<li><button id="theme-toggle">🌙</button></li>
 </ul>
 </div>
 </nav>
@@ -413,9 +486,31 @@ Fonctionnalités : CRUD, base de données, interface admin.
 </div>
 
 <script>
-const toggleButton=document.getElementById('theme-toggle');
-toggleButton.addEventListener('click',()=>{
-document.body.classList.toggle('dark-mode');
+const toggleButton = document.getElementById('theme-toggle');
+
+/* Charger le thème au démarrage */
+window.addEventListener("DOMContentLoaded", () => {
+  if(localStorage.getItem("theme") === "dark"){
+    document.body.classList.add("dark-mode");
+    toggleButton.textContent = "☀️";
+  } else {
+    toggleButton.textContent = "🌙";
+  }
+});
+
+/* Toggle */
+toggleButton.addEventListener('click', () => {
+
+  document.body.classList.toggle('dark-mode');
+
+  if(document.body.classList.contains("dark-mode")){
+    localStorage.setItem("theme", "dark");
+    toggleButton.textContent = "☀️";
+  } else {
+    localStorage.setItem("theme", "light");
+    toggleButton.textContent = "🌙";
+  }
+
 });
 
 /* GALERIE */
